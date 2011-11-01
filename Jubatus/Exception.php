@@ -1,7 +1,7 @@
 <?php
 /**
  * jubatus-php-client: Jubatus PHP Client Library
- * Copyright (C) 2011 Hironao Sekine
+ * Copyright (C) 2011 Preferred Infrastracture and Nippon Telegraph and Telephone Corporation.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
