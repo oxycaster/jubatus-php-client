@@ -18,6 +18,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+require_once 'Jubatus/MPClientFunc/BadRPCException.php';
+require_once 'Jubatus/MPClientFunc/MethodNotFoundException.php';
+require_once 'Jubatus/MPClientFunc/TypeMismatchException.php';
+
 class Jubatus_MPClientFunc
 {
     protected $_host;
