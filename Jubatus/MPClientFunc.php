@@ -44,7 +44,7 @@ class Jubatus_MPClientFunc
             $errno, $errstr, $this->_timeout);
         
         if(!$socket) {
-            throw new Exception($errstr);
+            throw new Jubatus_Exception($errstr);
         } else {
             $i = mt_rand(0, self::MAX_CALL_ID);
             // var_dump(array(0, $i, $this->_method, $argv));
@@ -60,17 +60,17 @@ class Jubatus_MPClientFunc
             $unpacked = msgpack_unpack($recv);
             
             if(count($unpacked) !== 4) {
-                throw new Jubatus_BadRPC();
+                throw new Jubatus_MPClientFunc_BadRPCException();
             } elseif($unpacked[0] !== 1) {
-                throw new Jubatus_BadRPC();
+                throw new Jubatus_MPClientFunc_BadRPCException();
             } elseif($unpacked[1] !== $i) {
-                throw new Jubatus_BadRPC();
+                throw new Jubatus_MPClientFunc_BadRPCException();
             } elseif(!empty($unpacked[2])){
                 if($unpacked[2] == 1) {
-                    throw new Jubatus_MethodNotFound();
+                    throw new Jubatus_MPClientFunc_MethodNotFoundException();
                 } elseif($unpacked[2] == 2) {
                     var_dump($unpacked);
-                    throw new Jubatus_TypeMismatch();
+                    throw new Jubatus_MPClientFunc_TypeMismatchException();
                 } else {
                     throw new Jubatus_Exception($unpacked[2]);
                 }
