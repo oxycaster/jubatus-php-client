@@ -28,7 +28,6 @@ class Jubatus_MPClientFunc
     protected $_port;
     protected $_method;
     protected $_timeout;
-    protected $_unpacker;
     
     const MAX_CALL_ID = 65535;
     
@@ -38,7 +37,6 @@ class Jubatus_MPClientFunc
         $this->_port = $host[1];
         $this->_method = $method;
         $this->_timeout = $timeout;
-        $this->_unpacker = new MessagePackUnpacker();
     }
 
     public function __call($func_name, $argv)
@@ -51,18 +49,16 @@ class Jubatus_MPClientFunc
             throw new Jubatus_Exception($errstr);
         } else {
             $i = mt_rand(0, self::MAX_CALL_ID);
-            // var_dump(array(0, $i, $this->_method, $argv));
             $send_msg = msgpack_pack(array(0, $i, $this->_method, $argv));
             
             fputs($socket, $send_msg . "\n");
-            
             $recv = '';
             while(!feof($socket)) {
                 $recv .= fgets($socket, 1024);
             }
             fclose($socket);
-            $unpacked = msgpack_unpack($recv);
             
+            $unpacked = msgpack_unpack($recv);
             if(count($unpacked) !== 4) {
                 throw new Jubatus_MPClientFunc_BadRPCException();
             } elseif($unpacked[0] !== 1) {
