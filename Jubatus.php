@@ -66,7 +66,7 @@ class Jubatus extends Jubatus_Accessor
         try {
             list($success, $retval, $error) = $f->train($this->_name, $label2data);
             if(!$success) {
-                throw Jubatus_Exception($error);
+                throw new Jubatus_Exception($error);
             }
             return $retval;
         } catch(Jubatus_Exception $e) {
@@ -80,7 +80,7 @@ class Jubatus extends Jubatus_Accessor
         try {
             list($success, $retval, $error) = $f->classify($this->_name, $data);
             if(!$success) {
-                throw Jubatus_Exception($error);
+                throw new Jubatus_Exception($error);
             }
             return $retval;
         } catch(Jubatus_Exception $e) {

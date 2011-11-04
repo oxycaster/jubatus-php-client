@@ -41,7 +41,7 @@ class Jubatus_Accessor
         try {
             list($success, $retval, $error) = $f->classifier($this->_name, $id);
             if(!$success) {
-                throw Jubatus_Exception($error);
+                throw new Jubatus_Exception($error);
             }
             return $success;
         }catch(Jubatus_Exception $e){
@@ -55,7 +55,7 @@ class Jubatus_Accessor
         try {
             list($success, $retval, $error) = $f->classifier($this->_name, $id);
             if(!$success) {
-                throw Jubatus_Exception($error);
+                throw new Jubatus_Exception($error);
             }
             return $success;
         } catch (Jubatus_Exception $e) {
