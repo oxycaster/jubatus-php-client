@@ -49,7 +49,7 @@ class Jubatus_MPClientFunc
             throw new Jubatus_Exception($errstr);
         } else {
             $i = mt_rand(0, self::MAX_CALL_ID);
-            $send_msg = msgpack_pack(array(0, $i, $this->_method, $argv));
+            $send_msg = msgpack_serialize(array(0, $i, $this->_method, $argv));
             
             fputs($socket, $send_msg . "\n");
             $recv = '';
@@ -58,7 +58,7 @@ class Jubatus_MPClientFunc
             }
             fclose($socket);
             
-            $unpacked = msgpack_unpack($recv);
+            $unpacked = msgpack_unserialize($recv);
             if(count($unpacked) !== 4) {
                 throw new Jubatus_MPClientFunc_BadRPCException();
             } elseif($unpacked[0] !== 1) {
